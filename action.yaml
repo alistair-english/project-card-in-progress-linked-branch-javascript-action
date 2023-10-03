@@ -1,0 +1,13 @@
+name: 'Project Card to In Progress'
+description: 'Moves a project card to in-progress when the issue has a linked branch created for it.'
+inputs:
+  who-to-greet:  # id of input
+    description: 'Who to greet'
+    required: true
+    default: 'World'
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
