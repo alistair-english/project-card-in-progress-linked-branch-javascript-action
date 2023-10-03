@@ -9631,30 +9631,6 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 6487:
-/***/ ((module) => {
-
-module.exports = eval("require")("./generate-mutation-query");
-
-
-/***/ }),
-
-/***/ 5332:
-/***/ ((module) => {
-
-module.exports = eval("require")("./generate-project-query");
-
-
-/***/ }),
-
-/***/ 1074:
-/***/ ((module) => {
-
-module.exports = eval("require")("./get-action-data");
-
-
-/***/ }),
-
 /***/ 4737:
 /***/ ((module) => {
 
@@ -9835,9 +9811,9 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(849);
 const github = __nccwpck_require__(3168);
 
-const getActionData = __nccwpck_require__(1074);
-const generateProjectQuery = __nccwpck_require__(5332);
-const generateMutationQuery = __nccwpck_require__(6487);
+// const getActionData = require('./get-action-data');
+// const generateProjectQuery = require('./generate-project-query');
+// const generateMutationQuery = require('./generate-mutation-query');
 
 (async () => {
     try {

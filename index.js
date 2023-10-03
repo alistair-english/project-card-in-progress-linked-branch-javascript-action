@@ -1,9 +1,9 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-const getActionData = require('./get-action-data');
-const generateProjectQuery = require('./generate-project-query');
-const generateMutationQuery = require('./generate-mutation-query');
+// const getActionData = require('./get-action-data');
+// const generateProjectQuery = require('./generate-project-query');
+// const generateMutationQuery = require('./generate-mutation-query');
 
 (async () => {
     try {
