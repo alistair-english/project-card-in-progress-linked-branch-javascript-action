@@ -9631,6 +9631,30 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 6487:
+/***/ ((module) => {
+
+module.exports = eval("require")("./generate-mutation-query");
+
+
+/***/ }),
+
+/***/ 5332:
+/***/ ((module) => {
+
+module.exports = eval("require")("./generate-project-query");
+
+
+/***/ }),
+
+/***/ 1074:
+/***/ ((module) => {
+
+module.exports = eval("require")("./get-action-data");
+
+
+/***/ }),
+
 /***/ 4737:
 /***/ ((module) => {
 
@@ -9811,19 +9835,62 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(849);
 const github = __nccwpck_require__(3168);
 
-try {
-    // `who-to-greet` input defined in action metadata file
-    const nameToGreet = core.getInput('who-to-greet');
-    console.log(`Hello ${nameToGreet}!`);
-    const time = (new Date()).toTimeString();
-    core.setOutput("time", time);
-    // Get the JSON webhook payload for the event that triggered the workflow
-    const payload = JSON.stringify(github.context.payload, undefined, 2)
-    console.log(`The event payload: ${payload}`);
-} catch (error) {
-    core.setFailed(error.message);
-}
+const getActionData = __nccwpck_require__(1074);
+const generateProjectQuery = __nccwpck_require__(5332);
+const generateMutationQuery = __nccwpck_require__(6487);
 
+(async () => {
+    try {
+        // const token = core.getInput('repo-token', { required: true });
+        // const project = core.getInput('project', { required: true });
+        // const column = core.getInput('column', { required: true });
+
+        const { eventName, payload } = github.context
+
+        if (eventName != 'create') {
+            throw new Error('Can only be run on create event!');
+        }
+
+        const { ref, ref_type } = payload
+
+        const branch = ref.split('/')[ref.split('/').length - 1]
+
+        core.info(branch)
+        console.log(branch)
+
+        // // Create a method to query GitHub
+        // const octokit = new github.GitHub(token);
+
+        // // Get the column ID from searching for the project and card Id if it exists
+        // const projectQuery = generateProjectQuery(url, eventName, project);
+
+        // core.debug(projectQuery);
+
+        // const { resource } = await octokit.graphql(projectQuery);
+
+        // core.debug(JSON.stringify(resource));
+
+        // // A list of columns that line up with the user entered project and column
+        // const mutationQueries = generateMutationQuery(resource, project, column, nodeId, action);
+        // if ((action === 'delete' || action === 'archive' || action === 'add') && mutationQueries.length === 0) {
+        //     console.log('✅ There is nothing to do with card');
+        //     return;
+        // }
+
+        // core.debug(mutationQueries.join('\n'));
+
+        // // Run the graphql queries
+        // await Promise.all(mutationQueries.map(query => octokit.graphql(query)));
+
+        // if (mutationQueries.length > 1) {
+        //     console.log(`✅ Card materialised into to ${column} in ${mutationQueries.length} projects called ${project}`);
+        // } else {
+        //     console.log(`✅ Card materialised into ${column} in ${project}`);
+        // }
+    } catch (error) {
+        core.setFailed(error.message);
+    }
+})();
 })();
 
 module.exports = __webpack_exports__;
