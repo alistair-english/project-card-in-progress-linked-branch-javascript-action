@@ -19,16 +19,19 @@ const github = require('@actions/github');
 
         const { ref, ref_type } = payload
 
+        if (ref_type != 'branch') {
+            core.info("Not a branch -> nothing to do.");
+            return
+        }
+
         const branch = ref.split('/')[ref.split('/').length - 1]
+        const issueNumber = parseInt(branch.split('-')[0])
 
-        core.info(branch)
-        console.log(branch)
+        // Create a method to query GitHub
+        const octokit = new github.GitHub(token);
 
-        // // Create a method to query GitHub
-        // const octokit = new github.GitHub(token);
-
-        // // Get the column ID from searching for the project and card Id if it exists
-        // const projectQuery = generateProjectQuery(url, eventName, project);
+        // Get the column ID from searching for the project and card Id if it exists
+        const projectQuery = generateProjectQuery(url, eventName, project);
 
         // core.debug(projectQuery);
 
